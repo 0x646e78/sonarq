@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
-import docker
 import argparse
+import docker
 import json
 import os
 import time
