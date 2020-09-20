@@ -103,7 +103,8 @@ if args.stop_server:
 
 if not args.path:
     parser.error('Must specify a code path')
-code_path = os.path.abspath(os.path.expanduser(args.path[0]))
+code_path = os.path.abspath(args.path)
+
 if args.project_name:
     project_name = args.project_name
 else:

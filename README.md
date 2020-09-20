@@ -5,6 +5,7 @@ sonarq - Local sonarqube scanning solution
 
 sonarq was created to assist whitebox application assessments.  It uses docker to run ephemeral scanners and a sonarqube server which is available locally. 
 
+
 ## Use
 
 ```
@@ -17,6 +18,7 @@ A link to the completed scan will be printed to stdout. By default the server wi
 
 The server container can be stopped with `--stop-server` or removed completely with `--kill-server`
 
+
 ## Install
 
 ### Pre-requsites:
@@ -24,12 +26,14 @@ The server container can be stopped with `--stop-server` or removed completely w
 - docker
 - python3
 
+
 ### Set up & source a python virtual env
 
 ```
 python3 -m venv venv
 . venv/bin/activate
 ```
+
 
 ### Install libraries
 
@@ -44,7 +48,7 @@ pip3 install -r requirements.txt
 $ ./sonarq.py ./
 Beginning sonarq tasks for /Users/dnx/dev/pub/sonarq
 Creating docker network sonarq for project sonarq
-Starting a new sonarqube server
+Launching a new sonarqube server
 Sonarqube server is available at http://127.0.0.1:9000
 Creating a new Sonarqube project named sonarq
 Starting a sonarqube scan of sonarq. This could take a while.
