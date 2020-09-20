@@ -140,7 +140,7 @@ if state != 'running':
    
 #auth to server
 s = SonarQubeClient(sonarqube_url=f'http://{host_ip}:{host_port}', username=server_user, password=server_pass)
-print(f'Sonarqube server is available at http://{host_ip}:{host_port}')
+print(f'SonarQube server is available at http://{host_ip}:{host_port}')
 
 #Create a token
 sonar_tokens = s.user_tokens.search_user_tokens(user_login=server_user)

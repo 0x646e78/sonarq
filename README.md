@@ -21,10 +21,10 @@ The server container can be stopped with `--stop-server` or removed completely w
 
 ## Install
 
-### Pre-requsites:
+### Prerequisites
 
-- docker
 - python3
+- docker
 
 
 ### Set up & source a python virtual env
@@ -49,7 +49,7 @@ $ ./sonarq.py ./
 Beginning sonarq tasks for /Users/dnx/dev/pub/sonarq
 Creating docker network sonarq for project sonarq
 Launching a new sonarqube server
-Sonarqube server is available at http://127.0.0.1:9000
+SonarQube server is available at http://127.0.0.1:9000
 Creating a new Sonarqube project named sonarq
 Starting a sonarqube scan of sonarq. This could take a while.
 Scan complete. Results are available at the following url (user/pass = admin/admin)
