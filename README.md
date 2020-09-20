@@ -1,4 +1,4 @@
-sonarq - Local sonarqube scanning solution
+sonarq - Local SonarQube Scanning
 ---
 
 `sonarq.py` provides a quick & easy local sonarqube scanner & server solution driven from the cli.
