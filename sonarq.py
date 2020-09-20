@@ -68,6 +68,14 @@ class Infra():
         print('Starting sonar server')
         return self.client.containers.get(server_name).start()
 
+    def stop(self):
+        print('Stopping sonar server')
+        return self.client.containers.get(server_name).stop()
+
+    def kill(self):
+        print('Removing sonar server')
+        return self.client.containers.get(server_name).remove(force=True)
+
 #argparse TODO:
 # scan even if not a git repo
 # password for server
@@ -78,8 +86,20 @@ parser.add_argument('--ip', default='127.0.0.1',
                     help='Local host IP to bind to, defaults to 127.0.0.1.')
 parser.add_argument('--port', default='9000',
                     help='Local host port to bind to, defaults to 9000.')
-parser.add_argument('path', nargs=1)
+parser.add_argument('--stop-server', action='store_true',
+                    help="Stop the server")
+parser.add_argument('--kill-server', action='store_true',
+                    help="Destroy the server")
+parser.add_argument('path', nargs='?')
 args = parser.parse_args()
+
+infra = Infra()
+if args.kill_server:
+    infra.kill()
+    exit(0)
+if args.stop_server:
+    infra.stop()
+    exit(0)
 
 if not args.path:
     parser.error('Must specify a code path')
@@ -91,11 +111,9 @@ else:
 host_ip = args.ip
 host_port = args.port
 
-print(f'Beginning sonarq tasks for {code_path}')
-
 #TODO check code path exists and is a git repo
 
-infra = Infra()
+print(f'Beginning sonarq tasks for {code_path}')
 
 #check docker network, create if non existent
 infra.check_network()

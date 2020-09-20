@@ -1,9 +1,9 @@
 sonarq - Local sonarqube scanning solution
 ---
 
-`sonarq.py` provides a quick & easy local sonarqube scanner & server solution, driven from the cli.
+`sonarq.py` provides a quick & easy local sonarqube scanner & server solution driven from the cli.
 
-sonarq was created to assist whitebox application assessments.  It uses docker to run ephemeral scanners and a sonarqube server available locally. 
+sonarq was created to assist whitebox application assessments.  It uses docker to run ephemeral scanners and a sonarqube server which is available locally. 
 
 ## Use
 
@@ -11,15 +11,11 @@ sonarq was created to assist whitebox application assessments.  It uses docker t
 ./sonarq.py <code_path>
 ```
 
-Further options cam be viewed with `--help`
+Further options can be viewed with `--help`
 
 A link to the completed scan will be printed to stdout. By default the server will be avaiable on [http://localhost:9000](http://localhost:9000)
 
-To stop or remove the server is currently via docker:
-
-```
-docker stop sonar-server
-```
+The server container can be stopped with `--stop-server` or removed completely with `--kill-server`
 
 ## Install
 
@@ -45,7 +41,7 @@ pip3 install -r requirements.txt
 ## Example
 
 ```
-./sonarq.py ./
+$ ./sonarq.py ./
 Beginning sonarq tasks for /Users/dnx/dev/pub/sonarq
 Creating docker network sonarq for project sonarq
 Starting a new sonarqube server
