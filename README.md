@@ -1,9 +1,9 @@
-sonarq - a local sonarqube scanning solution
+sonarq - Local sonarqube scanning solution
 ---
 
-`sonarq.py` provides a local sonarqube scanner & server solution, driven from the cli.
+`sonarq.py` provides a quick & easy local sonarqube scanner & server solution, driven from the cli.
 
-It uses ephemeral scanners and creates/starts a sonarqube server with local web access.
+sonarq was created to assist whitebox application assessments.  It uses docker to run ephemeral scanners and a sonarqube server available locally. 
 
 ## Use
 
