@@ -29,12 +29,12 @@ class Infra():
         try:
             self.client.networks.get(docker_network)
         except docker.errors.NotFound:
-            print(f'Creating docker network {docker_network} for sonarqube')
+            print(f'Creating docker network "{docker_network}" for SonarQube')
             self.client.networks.create(docker_network)
 
     def run_server(self):
         try:
-            print('Launching a new sonarqube server')
+            print('Launching a new SonarQube server')
             container = self.client.containers.run(f'{server_image}:{server_tag}',
                             name=server_name,
                             network=docker_network,
@@ -47,7 +47,7 @@ class Infra():
 
     def run_scan(self, code_path, project_name, token):
         try:
-            print(f'Starting a sonarqube scan of {project_name}. This could take a while depending on project size')
+            print(f'Starting a SonarQube scan of {project_name}. This could take a while depending on project size')
             container = self.client.containers.run(f'{scanner_image}:{scanner_tag}',
                             f'-Dsonar.projectKey={project_name} -Dsonar.login={token} -Dsonar.working.directory=/tmp',
                             environment={'SONAR_HOST_URL': f'http://{server_name}:{host_port}'},
@@ -67,7 +67,7 @@ class Infra():
             return False
 
     def start_server(self):
-        print('Starting sonar server')
+        print('Starting SonarQube server')
         return self.client.containers.get(server_name).start()
     
     def pull(self):
@@ -76,11 +76,11 @@ class Infra():
         self.client.images.pull(scanner_image, tag=scanner_tag)
 
     def stop(self):
-        print('Stopping sonar server')
+        print('Stopping SonarQube server')
         return self.client.containers.get(server_name).stop()
 
     def kill(self):
-        print('Removing sonar server')
+        print('Removing SonarQube server')
         return self.client.containers.get(server_name).remove(force=True)
 
 #argparse TODO:
@@ -126,7 +126,7 @@ host_port = args.port
 
 #TODO check code path exists and is a git repo
 
-print(f'Beginning sonarq tasks for {code_path}')
+print(f'Beginning sonarq tasks for the path {code_path}')
 
 #check docker network, create if non existent
 infra.check_network()
@@ -164,10 +164,10 @@ sonar_token = s.user_tokens.generate_user_token(project_name, user_login=server_
 #check if project exists in sonar, create if not
 project = list(s.projects.search_projects(projects=project_name))
 if len(project) < 1:
-    print(f'Creating a new Sonarqube project named {project_name}')
+    print(f'Creating a new SonarQube project named {project_name}')
     project = s.projects.create_project(project=project_name, name=project_name, visibility='private')
 else:
-    print(f'Using existing Sonarqube project for {project_name}')
+    print(f'Using existing SonarQube project {project_name}')
     project = project[0]
 
 #run the scan
