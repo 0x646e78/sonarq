@@ -10,7 +10,9 @@ from datetime import timezone
 from sonarqube import SonarQubeClient
 
 scanner_image='sonarsource/sonar-scanner-cli'
-server_image='sonarqube:lts'
+scanner_tag='latest'
+server_image='sonarqube'
+server_tag='lts'
 server_name='sonar-server'
 server_user='admin'
 server_pass='admin' #Please don't bug me about this yet :P
@@ -33,7 +35,7 @@ class Infra():
     def run_server(self):
         try:
             print('Launching a new sonarqube server')
-            container = self.client.containers.run(server_image,
+            container = self.client.containers.run(f'{server_image}:{server_tag}',
                             name=server_name,
                             network=docker_network,
                             ports={'9000/tcp': (host_ip, host_port)},
@@ -46,7 +48,7 @@ class Infra():
     def run_scan(self, code_path, project_name, token):
         try:
             print(f'Starting a sonarqube scan of {project_name}. This could take a while depending on project size')
-            container = self.client.containers.run(scanner_image,
+            container = self.client.containers.run(f'{scanner_image}:{scanner_tag}',
                             f'-Dsonar.projectKey={project_name} -Dsonar.login={token} -Dsonar.working.directory=/tmp',
                             environment={'SONAR_HOST_URL': f'http://{server_name}:{host_port}'},
                             name='sonar-scanner',
@@ -67,6 +69,11 @@ class Infra():
     def start_server(self):
         print('Starting sonar server')
         return self.client.containers.get(server_name).start()
+    
+    def pull(self):
+        print('Updating docker images')
+        self.client.images.pull(server_image, tag=server_tag)
+        self.client.images.pull(scanner_image, tag=scanner_tag)
 
     def stop(self):
         print('Stopping sonar server')
@@ -86,6 +93,8 @@ parser.add_argument('--ip', default='127.0.0.1',
                     help='Local host IP to bind to, defaults to 127.0.0.1.')
 parser.add_argument('--port', default='9000',
                     help='Local host port to bind to, defaults to 9000.')
+parser.add_argument('-p', '--pull', action='store_true',
+                    help='Get the docker mages used by sonarq')
 parser.add_argument('--stop-server', action='store_true',
                     help="Stop the server")
 parser.add_argument('--kill-server', action='store_true',
@@ -99,6 +108,9 @@ if args.kill_server:
     exit(0)
 if args.stop_server:
     infra.stop()
+    exit(0)
+if args.pull:
+    infra.pull()
     exit(0)
 
 if not args.path:
