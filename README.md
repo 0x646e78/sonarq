@@ -16,9 +16,9 @@ Further options can be viewed with `--help`
 
 A link to the completed scan will be printed to stdout. By default the server will be avaiable on [http://localhost:9000](http://localhost:9000)
 
-If the required docker images aren't already on disk they will be pulled. If you want to pull them as a separate task you can do so with `--pull`.
+If the required docker images aren't already on disk they will be pulled. If you want to pull them as a separate task you can do so with `--pull`
 
-The server container can be stopped with `--stop-server` or removed completely with `--kill-server`.
+The server container can be stopped with `--stop-server` or removed completely with `--kill-server`
 
 
 ## Install
