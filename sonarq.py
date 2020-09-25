@@ -71,9 +71,11 @@ class Infra():
         return self.client.containers.get(server_name).start()
     
     def pull(self):
-        print('Updating docker images')
+        print('Updating docker images, this could take a while')
         self.client.images.pull(server_image, tag=server_tag)
+        print('Server image pulled')
         self.client.images.pull(scanner_image, tag=scanner_tag)
+        print('Scanner image pulled')
 
     def stop(self):
         print('Stopping SonarQube server')
