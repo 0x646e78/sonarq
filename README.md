@@ -30,6 +30,8 @@ The server container can be stopped with `--stop-server` or removed completely w
 
 ### Try the alpha from PyPI testing
 
+sonarq is presently in [TestPyPI](https://test.pypi.org/project/sonarq-runner/)
+
 ```
 python3 -m pip install --index-url https://test.pypi.org/simple/ --no-deps sonarq-runner
 ```
