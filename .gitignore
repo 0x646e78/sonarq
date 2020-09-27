@@ -1,3 +1,6 @@
 venv
 .venv
 *.swp
+dist/
+build/
+sonarq_runner.egg-info/

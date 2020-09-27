@@ -28,8 +28,15 @@ The server container can be stopped with `--stop-server` or removed completely w
 - python3
 - docker
 
+### Try the alpha from PyPI testing
 
-### Set up & source a python virtual env
+```
+python3 -m pip install --index-url https://test.pypi.org/simple/ --no-deps sonarq-runner
+```
+
+### Run from source
+
+#### Set up & source a python virtual env
 
 ```
 python3 -m venv venv
@@ -37,7 +44,7 @@ python3 -m venv venv
 ```
 
 
-### Install libraries
+#### Install libraries
 
 ```
 pip3 install -r requirements.txt
